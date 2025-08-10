@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>توقعات الدوري الإنجليزي 2025/2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: url('https://images.unsplash.com/photo-1508606572321-901ea443707f?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #f1f5f9;
+      margin: 0; padding: 20px;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.75);
+      min-height: 100vh;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.2em;
+      color: #facc15; /* yellow amber */
+      text-shadow: 2px 2px 6px #000;
+    }
+    .players {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+    .players img {
+      width: 80px;
+      border-radius: 50%;
+      border: 3px solid #facc15;
+      box-shadow: 0 4px 10px rgba(250, 204, 21, 0.7);
+      object-fit: cover;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e293b;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #334155;
+      text-align: right;
+      color: #e0e7ff;
+    }
+    th {
+      background: #0f172a;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background: #facc15;
+      color: #0f172a;
+      font-weight: 700;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #facc15;
+      color: #0f172a;
+      border: none;
+      padding: 12px 22px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(250, 204, 21, 0.5);
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #eab308;
+    }
+    .note, .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #cbd5e1;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>توقعات الدوري الإنجليزي 2025/2026</h1>
+
+    <div class="players" aria-label="نجوم الدوري الإنجليزي">
+      <img src="https://cdn.sportmonks.com/images/soccer/players/21/215567.png" alt="إيرلينغ هالاند" title="إيرلينغ هالاند">
+      <img src="https://cdn.sportmonks.com/images/soccer/players/9/92723.png" alt="محمد صلاح" title="محمد صلاح">
+      <img src="https://cdn.sportmonks.com/images/soccer/players/39/39943.png" alt="بوكايو ساكا" title="بوكايو ساكا">
+      <img src="https://cdn.sportmonks.com/images/soccer/players/8/83111.png" alt="كيفين دي بروين" title="كيفين دي بروين">
+      <img src="https://cdn.sportmonks.com/images/soccer/players/9/92756.png" alt="برونو فيرنانديز" title="برونو فيرنانديز">
+    </div>
+
+    <p style="text-align:center; color:#f1f5f9; margin-bottom:20px;">
+      اختر فريق لكل مركز من 1 إلى 20. يمنع اختيار نفس الفريق في أكثر من مركز.
+    </p>
+
+    <table id="table" aria-label="جدول توقعات الدوري الإنجليزي">
+      <thead>
+        <tr><th style="width:90px">المركز</th><th>الفريق</th></tr>
+      </thead>
+      <tbody>
+"""
+
+teams = [
+"Arsenal",
+"Aston Villa",
+"AFC Bournemouth",
+"Brentford",
+"Brighton & Hove Albion",
+"Burnley",
+"Chelsea",
+"Crystal Palace",
+"Everton",
+"Fulham",
+"Leeds United",
+"Liverpool",
+"Manchester City",
+"Manchester United",
+"Newcastle United",
+"Nottingham Forest",
+"Sunderland",
+"Tottenham Hotspur",
+"West Ham United",
+"Wolverhampton Wanderers"
+]
+
+for i in range(1, 21):
+    options_html = '<option value="">-- اختَر فريق --</option>'
+    for t in teams:
+        options_html += f'<option value="{t}">{t}</option>'
+    html += f'<tr><td>{i}</td><td><select data-pos="{i}" aria-label="position-{i}">{options_html}</select></td></tr>\n'
+
+html += """
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button id="copyBtn" aria-label="نسخ التوقعات">نسخ التوقعات</button>
+      <button id="csvBtn" aria-label="تحميل ملف CSV">تحميل CSV</button>
+      <button id="resetBtn" aria-label="إعادة تعيين الاختيارات">إعادة تعيين</button>
+    </div>
+
+    <p class="note">يمكن فتح الصفحة محلياً بدون إنترنت، ويمكن رفعها على GitHub Pages أو Netlify للمشاركة كرابط.</p>
+    <p class="footer">الفرق مأخوذة من مصادر رسمية لموسم 2025/2026.</p>
+  </div>
+
+<script>
+  const selects = Array.from(document.querySelectorAll('select'));
+
+  function refreshOptions() {
+    const chosen = selects.map(s => s.value).filter(v => v);
+    selects.forEach(s => {
+      const current = s.value;
+      Array.from(s.options).forEach(opt => {
+        if (!opt.value) return;
+        if (chosen.includes(opt.value) && opt.value !== current) {
+          opt.disabled = true;
+          opt.style.color = '#94a3b8';
+        } else {
+          opt.disabled = false;
+          opt.style.color = '';
+        }
+      });
+    });
+  }
+
+  selects.forEach(s => {
+    s.addEventListener('change', () => {
+      refreshOptions();
+    });
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    const rows = [['Position','Team']];
+    selects.forEach(s => {
+      const pos = s.getAttribute('data-pos');
+      const team = s.value || '';
+      rows.push([pos, team]);
+    });
+    const txt = rows.map(r => r.join('\\t')).join('\\n');
+    try {
+      await navigator.clipboard.writeText(txt);
+      alert('تم نسخ التوقعات إلى الحافظة. الصقها في دردشة الواتس أو ملف نصي.');
+    } catch (err) {
+      alert('فشل النسخ تلقائياً — افتح القائمة ونسخ يدوياً.');
+    }
+  });
+
+  document.getElementById('csvBtn').addEventListener('click', () => {
+    const rows = [['Position','Team']];
+    selects.forEach(s => {
+      const pos = s.getAttribute('data-pos');
+      const team = s.value || '';
+      rows.push([pos, team]);
+    });
+    const csvContent = rows.map(r => r.map(c => '\"' + c.replace(/\"/g,'\"\"') + '\"').join(',')).join('\\n');
+    const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'epl_predictions_2025_2026.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('هل تريد فعلاً إعادة تعيين كل الاختيارات؟')) return;
+    selects.forEach(s => s.value = '');
+    refreshOptions();
+  });
+
+  refreshOptions();
+
+  selects.forEach((s, idx) => {
+    s.addEventListener('change', () => {
+      if (idx < selects.length - 1) {
+        selects[idx + 1].focus();
+      }
+    });
+  });
+</script>
+</body>
+</html>
